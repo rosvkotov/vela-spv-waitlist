@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vela — Set up your next SPV in 48 hours</title>
+  <title>Vela — The AI operating system for syndicates and SPVs</title>
+  <meta name="description" content="Modern software for syndicate leads and fund managers to run their deals. Vela automates investor communication, drafts investor memos and updates, and runs onboarding, reporting and banking — so you spend your time on deals, not admin.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Google Analytics — replace G-XXXXXXXXXX with your GA4 measurement ID -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -14,373 +16,299 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #0B3558;
-      --navy-dark: #071E34;
-      --teal: #0F8A6A;
-      --teal-light: #E6F5F1;
-      --white: #FFFFFF;
-      --off-white: #F7F9FC;
-      --text: #1A2B3C;
-      --muted: #5A7184;
-      --border: #D8E3EC;
+      --bg: #FFFFFF;
+      --bg-soft: #F6F8FB;
+      --ink: #0A1020;
+      --text: #3C4858;
+      --muted: #6B7686;
+      --border: #E7ECF2;
+      --accent: #0FA68F;
+      --accent-dark: #0B8472;
+      --accent-tint: #E9F8F4;
+      --shadow: 0 12px 40px rgba(10,16,32,0.07);
+      --shadow-sm: 0 2px 12px rgba(10,16,32,0.05);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; background: rgba(7,30,52,0.97); backdrop-filter: blur(8px); }
-    .nav-logo { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; text-decoration: none; }
-    .nav-logo span { color: #4ECBA5; }
-    .nav-cta { background: var(--teal); color: white; padding: 9px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity .2s; }
-    .nav-cta:hover { opacity: 0.85; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.8); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s, box-shadow .2s; }
+    nav.scrolled { border-color: var(--border); box-shadow: 0 1px 0 rgba(10,16,32,0.02); }
+    .nav-logo { font-size: 21px; font-weight: 800; color: var(--ink); letter-spacing: -0.6px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-cta { background: var(--ink); color: #fff; padding: 10px 20px; border-radius: 9px; font-size: 14px; font-weight: 600; transition: transform .12s, background .2s; }
+    .nav-cta:hover { background: #1A2236; transform: translateY(-1px); }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
 
     /* HERO */
-    .hero { background: linear-gradient(160deg, var(--navy-dark) 0%, #0E3F6E 100%); min-height: 100vh; display: flex; align-items: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 70% 50%, rgba(15,138,106,0.12) 0%, transparent 60%); pointer-events: none; }
-    .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(78,203,165,0.15); border: 1px solid rgba(78,203,165,0.3); color: #4ECBA5; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; margin-bottom: 28px; }
-    .hero-badge::before { content: '●'; font-size: 8px; }
-    h1 { font-size: clamp(36px, 5vw, 58px); font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
-    h1 em { color: #4ECBA5; font-style: normal; }
-    .hero-sub { font-size: 18px; color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 560px; margin: 0 auto 40px; }
+    .hero { padding: 132px 0 72px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -240px; right: -180px; width: 680px; height: 680px; background: radial-gradient(circle, rgba(15,166,143,0.10) 0%, transparent 62%); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-tint); color: var(--accent-dark); padding: 7px 14px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+    .badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(15,166,143,0.22); }
+    h1 { font-size: clamp(38px, 5.2vw, 58px); font-weight: 800; color: var(--ink); line-height: 1.05; letter-spacing: -2px; margin-bottom: 22px; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .hero-sub { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 28px; }
+    .hero-points { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+    .hero-points li { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--ink); }
+    .tick { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-tint); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+    .tick svg { width: 13px; height: 13px; }
+    .trust { font-size: 13px; color: var(--muted); }
+    .trust strong { color: var(--ink); }
 
-    /* FORM */
-    .form-wrap { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 28px 32px; max-width: 480px; margin: 0 auto; }
-    .form-wrap p { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 16px; }
-    .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
-    .form-wrap input, .form-wrap select {
-      width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px; color: white; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: border-color .2s;
+    /* FORM CARD */
+    .form-card { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; padding: 30px; box-shadow: var(--shadow); }
+    @keyframes pulseRing { 0% { box-shadow: var(--shadow); } 45% { box-shadow: 0 0 0 4px rgba(15,166,143,0.38), var(--shadow); } 100% { box-shadow: var(--shadow); } }
+    .form-card.pulse { animation: pulseRing 1.1s ease; }
+    .form-card h3 { font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; margin-bottom: 4px; }
+    .form-card .lead { font-size: 13.5px; color: var(--muted); margin-bottom: 22px; }
+    .field { margin-bottom: 12px; }
+    .form-card input, .form-card select {
+      width: 100%; padding: 13px 15px; background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--ink); font-size: 14.5px; font-family: inherit; outline: none; transition: border-color .18s, box-shadow .18s, background .18s;
     }
-    .form-wrap input::placeholder { color: rgba(255,255,255,0.35); }
-    .form-wrap input:focus, .form-wrap select:focus { border-color: #4ECBA5; }
-    .form-wrap select option { background: var(--navy-dark); color: white; }
+    .form-card input::placeholder { color: #9AA4B1; }
+    .form-card input:focus, .form-card select:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(15,166,143,0.12); }
+    .form-card select { color: #6B7686; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7686' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
     .btn-submit {
-      width: 100%; padding: 15px; background: var(--teal); color: white; border: none; border-radius: 8px;
-      font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; margin-top: 6px;
+      width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 6px;
       transition: background .2s, transform .1s; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .btn-submit:hover { background: #0DAF88; }
+    .btn-submit:hover { background: var(--accent-dark); }
     .btn-submit:active { transform: scale(0.99); }
-    .form-note { color: rgba(255,255,255,0.3); font-size: 12px; text-align: center; margin-top: 12px; }
-    .success-msg { display: none; text-align: center; padding: 24px; color: #4ECBA5; }
-    .success-msg h3 { font-size: 20px; margin-bottom: 8px; color: white; }
-    .success-msg p { font-size: 14px; color: rgba(255,255,255,0.6); }
+    .form-note { color: var(--muted); font-size: 12px; text-align: center; margin-top: 13px; }
+    .success-msg { display: none; text-align: center; padding: 30px 12px; }
+    .success-msg .check-big { width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%; background: var(--accent-tint); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; }
+    .success-msg h3 { font-size: 20px; margin-bottom: 8px; color: var(--ink); }
+    .success-msg p { font-size: 14px; color: var(--muted); }
 
-    /* STATS */
-    .stats { background: var(--off-white); padding: 48px 40px; border-bottom: 1px solid var(--border); }
-    .stats-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; }
-    .stat-num { font-size: 36px; font-weight: 800; color: var(--navy); letter-spacing: -1px; }
-    .stat-label { font-size: 14px; color: var(--muted); margin-top: 4px; }
+    /* PILLARS */
+    .pillars { padding: 84px 0; background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-head { text-align: center; max-width: 640px; margin: 0 auto 52px; }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; color: var(--ink); letter-spacing: -1.2px; line-height: 1.12; margin-bottom: 14px; }
+    .section-sub { font-size: 16.5px; color: var(--muted); line-height: 1.6; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px 30px; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .card-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--accent-tint); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .card-icon svg { width: 24px; height: 24px; }
+    .card h3 { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; margin-bottom: 10px; }
+    .card p { font-size: 14.5px; color: var(--text); line-height: 1.62; }
 
-    /* FEATURES */
-    .features { padding: 80px 40px; max-width: 1060px; margin: 0 auto; }
-    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-    .section-title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; color: var(--navy); letter-spacing: -1px; margin-bottom: 16px; }
-    .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 56px; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
-    .feature-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: box-shadow .2s, border-color .2s; }
-    .feature-card:hover { box-shadow: 0 8px 32px rgba(11,53,88,0.08); border-color: #B8CDD9; }
-    .feature-icon { width: 44px; height: 44px; background: var(--teal-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 20px; }
-    .feature-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    /* WHY IT MATTERS */
+    .matters { padding: 84px 0; }
+    .ts-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 980px; margin: 0 auto; }
+    .ts-point { border-top: 2px solid var(--accent); padding-top: 20px; }
+    .ts-point h4 { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.2px; margin-bottom: 8px; }
+    .ts-point p { font-size: 14.5px; color: var(--text); line-height: 1.62; }
 
-    /* HOW IT WORKS */
-    .how { background: var(--off-white); padding: 80px 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .how-inner { max-width: 900px; margin: 0 auto; }
-    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0; margin-top: 48px; }
-    .step { padding: 32px; position: relative; }
-    .step:not(:last-child)::after { content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--border); font-size: 24px; }
-    .step-num { width: 36px; height: 36px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin-bottom: 16px; }
-    .step h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-    /* COMPARISON */
-    .compare { padding: 80px 40px; max-width: 900px; margin: 0 auto; }
-    .compare-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
-    .compare-table th { padding: 14px 20px; text-align: left; font-size: 13px; font-weight: 700; background: var(--navy); color: white; }
-    .compare-table th:first-child { border-radius: 8px 0 0 0; }
-    .compare-table th:last-child { border-radius: 0 8px 0 0; background: var(--teal); }
-    .compare-table td { padding: 14px 20px; font-size: 14px; border-bottom: 1px solid var(--border); }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table tr:nth-child(even) td { background: var(--off-white); }
-    .compare-table td:last-child { color: var(--teal); font-weight: 600; }
-    .check { color: var(--teal); font-weight: 700; }
-    .cross { color: #C0C8D0; }
-
-    /* BOTTOM CTA */
-    .bottom-cta { background: var(--navy-dark); padding: 80px 40px; text-align: center; }
-    .bottom-cta h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 14px; }
-    .bottom-cta p { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 32px; }
-    .bottom-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
-    .bottom-form input { flex: 1; padding: 13px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; }
-    .bottom-form input::placeholder { color: rgba(255,255,255,0.35); }
-    .bottom-form button { padding: 13px 22px; background: var(--teal); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    /* CTA BAND */
+    .cta-band { background: var(--ink); padding: 72px 0; text-align: center; }
+    .cta-band h2 { font-size: clamp(26px, 3vw, 38px); font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 14px; }
+    .cta-band p { color: rgba(255,255,255,0.62); font-size: 16px; margin-bottom: 30px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--accent); color: #fff; padding: 15px 30px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background .2s, transform .12s; }
+    .cta-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     /* FOOTER */
-    footer { background: var(--navy-dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; }
-    footer p { color: rgba(255,255,255,0.3); font-size: 13px; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: rgba(255,255,255,0.3); font-size: 13px; text-decoration: none; }
-    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    footer { padding: 30px 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer p { color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); font-size: 13px; }
+    footer a:hover { color: var(--ink); }
 
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .hero { padding: 100px 20px 60px; }
-      .form-row { flex-direction: column; }
-      .stats-inner { grid-template-columns: 1fr; gap: 24px; }
-      .features, .compare, .how { padding: 60px 20px; }
-      .step:not(:last-child)::after { display: none; }
-      .bottom-form { flex-direction: column; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+      .cards { grid-template-columns: 1fr; }
+      .ts-points { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 560px) {
+      nav, .wrap { padding-left: 20px; padding-right: 20px; }
+      .hero { padding-top: 108px; }
+      .pillars, .matters, .cta-band { padding-top: 56px; padding-bottom: 56px; }
+      footer .footer-inner { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<nav>
+<nav id="nav">
   <a href="#" class="nav-logo">Vela<span>.</span></a>
   <a href="#waitlist" class="nav-cta">Join waitlist</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">UK EIS / SEIS · Bare Trust SPV · AI-Powered</div>
-    <h1>Your next SPV.<br><em>Set up in 48 hours.</em></h1>
-    <p class="hero-sub">Vela automates UK bare trust SPV formation, LP onboarding, EIS/SEIS compliance, and ongoing reporting — so you spend 2 hours per deal, not 30.</p>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge">Built for UK syndicate leads &amp; fund managers</div>
+      <h1>The AI operating system for <em>syndicates and SPVs</em>.</h1>
+      <p class="hero-sub">Modern software for syndicate leads and fund managers to run their deals. Vela automates your investor communication, drafts your investor memos and updates with AI, and runs onboarding, reporting and banking — so you spend your time on deals, not admin.</p>
+      <ul class="hero-points">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span> AI-powered investor communication, tailored to each deal</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span> Investor memos and updates, drafted by AI in minutes</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span> Onboarding, reporting and banking — handled end to end</li>
+      </ul>
+      <p class="trust">Run 10 SPVs in the time it used to take to run two.</p>
+    </div>
 
-    <div class="form-wrap" id="waitlist">
-      <p>Join the waitlist — free for first 10 design partners</p>
+    <div class="form-card" id="waitlist">
+      <h3>Join the waitlist</h3>
+      <p class="lead">Early access for syndicate leads and fund managers.</p>
       <!-- Replace xlgyewva with your Formspree form ID at formspree.io -->
-      <form id="spv-form" action="https://formspree.io/f/xlgyewva" method="POST">
-        <input type="hidden" name="proposition" value="SPV Formation">
-        <input type="hidden" name="_subject" value="New Vela SPV waitlist signup">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Your name">
-        </div>
-        <div class="form-row">
-          <input type="email" name="email" placeholder="Work email" required>
-        </div>
-        <div class="form-row">
+      <form id="vela-form" action="https://formspree.io/f/xlgyewva" method="POST">
+        <input type="hidden" name="proposition" value="Vela Platform">
+        <input type="hidden" name="_subject" value="New Vela waitlist signup">
+        <div class="field"><input type="text" name="name" placeholder="Your name"></div>
+        <div class="field"><input type="email" name="email" placeholder="Work email" required></div>
+        <div class="field">
           <select name="role">
             <option value="">Your role</option>
             <option value="syndicate_lead">Syndicate lead</option>
-            <option value="emerging_gp">Emerging GP / Fund manager</option>
+            <option value="fund_manager">Fund manager / GP</option>
+            <option value="emerging_gp">Emerging GP</option>
             <option value="scout">Scout / Operator angel</option>
-            <option value="angel">Active angel investor</option>
             <option value="other">Other</option>
           </select>
         </div>
-        <div class="form-row">
-          <input type="text" name="deals_per_year" placeholder="How many deals do you do per year?">
-        </div>
         <button type="submit" class="btn-submit">
-          Reserve my spot →
+          Reserve my spot
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
-        <p class="form-note">No spam. No credit card. Early access only.</p>
+        <p class="form-note">No spam. Early access only.</p>
       </form>
-      <div class="success-msg" id="spv-success">
-        <h3>You're on the list 🎉</h3>
-        <p>We'll be in touch as soon as we open early access. In the meantime, feel free to reach out at hello@vela.capital</p>
+      <div class="success-msg" id="vela-success">
+        <div class="check-big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>You're on the list</h3>
+        <p>We'll be in touch as soon as we open early access. Questions? hello@fundvela.com</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<section class="stats">
-  <div class="stats-inner">
-    <div>
-      <div class="stat-num">30 hrs</div>
-      <div class="stat-label">Average GP time per SPV today</div>
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">What Vela does</div>
+      <h2 class="section-title">An AI ops team for your syndicate.</h2>
+      <p class="section-sub">The operational layer behind every deal — so a one- or two-person operation runs like an institutional one.</p>
     </div>
-    <div>
-      <div class="stat-num">2 hrs</div>
-      <div class="stat-label">Average GP time per SPV with Vela</div>
-    </div>
-    <div>
-      <div class="stat-num">£2k + 1%</div>
-      <div class="stat-label">Simple, transparent pricing per deal</div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
-  <div class="section-label">What Vela does</div>
-  <h2 class="section-title">Everything between deal decision and close — automated.</h2>
-  <p class="section-sub">Vela handles the ops. You handle the deal flow.</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🏛️</div>
-      <h3>UK Bare Trust SPV Formation</h3>
-      <p>Legally structured bare trust with nominee. EIS/SEIS eligibility checked automatically. No lawyers, no weeks of back-and-forth.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">✅</div>
-      <h3>EIS/SEIS Compliance Built In</h3>
-      <p>HNWI and Sophisticated Investor certification embedded in LP onboarding. SEIS3/EIS3 certificate tracking automated from day one.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <h3>AI Chases LPs — You Don't</h3>
-      <p>Personalised, automated follow-ups until every LP has completed KYC, signed, and transferred. Never send a "just checking in" email again.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💬</div>
-      <h3>24/7 LP Q&A</h3>
-      <p>AI trained on your deal answers LP questions instantly, any hour. "Is this EIS?", "Where do I wire?", "What's the deadline?" — handled.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📄</div>
-      <h3>Investment Memo in Minutes</h3>
-      <p>Upload the pitch deck. Vela drafts a structured investment memo. You review, approve, send. Not 3 hours of writing — 15 minutes.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>Ongoing LP Updates</h3>
-      <p>Quarterly LP updates drafted automatically from portfolio data. AI-generated, GP-approved, sent on schedule. LPs stay informed without you lifting a finger.</p>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how">
-  <div class="how-inner">
-    <div class="section-label">How it works</div>
-    <h2 class="section-title">From deal decision to close in four steps.</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Create the deal</h3>
-        <p>Enter deal terms, company details, and target raise. Vela checks EIS/SEIS eligibility and sets up the bare trust structure.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>AI-powered investor communication</h3>
+        <p>Vela's AI handles investor comms for you — personalised chasing through KYC, signing and payment, and instant answers to investor questions around the clock. Every message is grounded in that specific deal's terms and documents, so investors get fast, accurate responses and rounds close on time.</p>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Invite your LPs</h3>
-        <p>Share a link. LPs complete KYC, sign docs, and transfer funds through a clean, professional portal. Vela chases anyone who hasn't completed.</p>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>AI-drafted investor memos</h3>
+        <p>Upload the pitch deck and Vela drafts a structured investment memo in minutes — company overview, round terms, key risks and funding history. You review and refine instead of writing from a blank page, so memos go out faster and read consistently across every deal.</p>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Close the deal</h3>
-        <p>Vela confirms all LPs are onboarded, funds received, and nominee registered on the cap table. You get a completion summary.</p>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 11l2 2 4-4"/></svg></div>
+        <h3>Onboarding &amp; reporting, automated</h3>
+        <p>Investors complete eligibility certification, KYC and e-signing in minutes through a guided flow. After close, quarterly updates are drafted automatically from live portfolio data and EIS/SEIS tax certificates are tracked and distributed — institutional-quality reporting without the manual work.</p>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Ongoing operations</h3>
-        <p>LP portal stays live. AI sends quarterly updates. Certificates tracked. You focus on the next deal — Vela runs the one you just closed.</p>
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3>Banking built in</h3>
+        <p>Every deal gets a dedicated, ring-fenced bank account, opened automatically. Investors wire in, funds release to the company on close, and distributions go back out — multi-currency and client-money protected, with none of the legacy-bank setup.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMPARISON -->
-<section class="compare">
-  <div class="section-label">How Vela compares</div>
-  <h2 class="section-title">Not just cheaper. Fundamentally different.</h2>
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>Capability</th>
-        <th>Odin</th>
-        <th>Law firm</th>
-        <th>Vela</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>UK bare trust SPV</td>
-        <td class="check">✓</td>
-        <td class="check">✓</td>
-        <td class="check">✓</td>
-      </tr>
-      <tr>
-        <td>EIS/SEIS eligibility check built in</td>
-        <td class="cross">✗</td>
-        <td class="cross">Extra cost</td>
-        <td class="check">✓ Automatic</td>
-      </tr>
-      <tr>
-        <td>AI LP chasing &amp; Q&A</td>
-        <td class="cross">✗</td>
-        <td class="cross">✗</td>
-        <td class="check">✓</td>
-      </tr>
-      <tr>
-        <td>LP portal post-close</td>
-        <td class="cross">✗</td>
-        <td class="cross">✗</td>
-        <td class="check">✓ Ongoing</td>
-      </tr>
-      <tr>
-        <td>AI-drafted quarterly updates</td>
-        <td class="cross">✗</td>
-        <td class="cross">✗</td>
-        <td class="check">✓</td>
-      </tr>
-      <tr>
-        <td>SEIS3/EIS3 certificate tracking</td>
-        <td class="cross">✗</td>
-        <td class="cross">Manual</td>
-        <td class="check">✓ Automated</td>
-      </tr>
-      <tr>
-        <td>Typical GP time per SPV</td>
-        <td>20–25 hrs</td>
-        <td>25–35 hrs</td>
-        <td>2–3 hrs</td>
-      </tr>
-      <tr>
-        <td>Pricing (£500k raise)</td>
-        <td>£4,000 flat</td>
-        <td>£8,000–15,000</td>
-        <td>£7,000 (2 yrs ops incl.)</td>
-      </tr>
-    </tbody>
-  </table>
+<!-- WHY IT MATTERS -->
+<section class="matters">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Why it matters</div>
+      <h2 class="section-title">The leverage of an ops team — without hiring one.</h2>
+      <p class="section-sub">Vela takes the operational grind off your plate — the chasing, the questions, the writing, the tracking — turning work that used to take days into minutes.</p>
+    </div>
+    <div class="ts-points">
+      <div class="ts-point">
+        <h4>Close deals faster</h4>
+        <p>Investors are onboarded, chased and answered automatically, so rounds fill and close without weeks of back-and-forth.</p>
+      </div>
+      <div class="ts-point">
+        <h4>Look institutional</h4>
+        <p>Every investor gets consistent, high-quality communication and reporting on every deal — however small your team.</p>
+      </div>
+      <div class="ts-point">
+        <h4>Scale without hiring</h4>
+        <p>Run many more deals with the same time and headcount. The admin runs quietly in the background.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- BOTTOM CTA -->
-<section class="bottom-cta">
-  <h2>Ready to close your next SPV faster?</h2>
-  <p>Join the waitlist. First 10 design partners get free formation on their first SPV.</p>
-  <form class="bottom-form" action="https://formspree.io/f/xlgyewva" method="POST">
-    <input type="hidden" name="proposition" value="SPV Formation">
-    <input type="hidden" name="source" value="bottom_cta">
-    <input type="email" name="email" placeholder="your@email.com" required>
-    <button type="submit">Join waitlist</button>
-  </form>
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to run your next SPV on Vela?</h2>
+    <p>Join the waitlist and be among the first to run your deals on Vela.</p>
+    <a href="#waitlist" class="cta-btn">
+      Join the waitlist
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
 </section>
 
 <footer>
-  <p>© 2026 Vela Capital Ltd · hello@vela.capital</p>
-  <div class="footer-links">
-    <a href="waitlist-fundadmin.html">Fund Admin →</a>
-    <a href="waitlist-angels.html">For Angels →</a>
+  <div class="wrap footer-inner">
+    <p>© 2026 Vela Capital Ltd</p>
+    <a href="mailto:hello@fundvela.com">hello@fundvela.com</a>
   </div>
 </footer>
 
 <script>
+  // Vercel Web Analytics (activates once enabled in the Vercel project dashboard)
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+
+  // Sticky-nav border on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll); onScroll();
+
+  // "Join waitlist" buttons: scroll to form, focus the email field, and pulse the card
+  document.querySelectorAll('a[href="#waitlist"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      const card = document.getElementById('waitlist');
+      if (!card) return;
+      setTimeout(function () {
+        const email = card.querySelector('input[name="email"]');
+        if (email) { try { email.focus({ preventScroll: true }); } catch (e) { email.focus(); } }
+        card.classList.remove('pulse'); void card.offsetWidth; card.classList.add('pulse');
+      }, 420);
+    });
+  });
+
   // Handle form submission with AJAX for better UX
-  const form = document.getElementById('spv-form');
+  const form = document.getElementById('vela-form');
   if (form) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = form.querySelector('.btn-submit');
-      btn.textContent = 'Submitting...';
+      const original = btn.innerHTML;
+      btn.textContent = 'Submitting…';
       btn.disabled = true;
       try {
         const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
         if (res.ok) {
           form.style.display = 'none';
-          document.getElementById('spv-success').style.display = 'block';
-          // GA event tracking
-          if (typeof gtag !== 'undefined') gtag('event', 'waitlist_signup', { proposition: 'spv' });
-        } else { btn.textContent = 'Try again'; btn.disabled = false; }
-      } catch { btn.textContent = 'Try again'; btn.disabled = false; }
+          document.getElementById('vela-success').style.display = 'block';
+          if (typeof gtag !== 'undefined') gtag('event', 'waitlist_signup', { proposition: 'vela_platform' });
+        } else { btn.innerHTML = original; btn.disabled = false; }
+      } catch { btn.innerHTML = original; btn.disabled = false; }
     });
   }
 </script>
+<!-- Vercel Web Analytics — collects views once enabled in Vercel → project → Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
